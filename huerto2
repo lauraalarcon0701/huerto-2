@@ -2,7 +2,7 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8">
-  <title>Huerto Educativo</title>
+  <title>Huerto Educativo Dinámico</title>
   <style>
     body { font-family: Arial; background: #e8f5e9; padding: 20px; }
     iframe { width: 100%; height: 400px; border: none; border-radius: 10px; }
@@ -12,56 +12,76 @@
 </head>
 <body>
 
-<h1>Huerto Educativo</h1>
+<h1>Huerto Educativo Dinámico</h1>
 
-<!-- MODELO 3D -->
-<iframe id="visor" src="https://sketchfab.com/models/ID_DEL_MODELO/embed"></iframe>
+<iframe id="visor" src=""></iframe>
 
-<!-- BOTONES -->
-<button onclick="mostrar('tomate')">Tomate</button>
-<button onclick="mostrar('lechuga')">Lechuga</button>
-<button onclick="mostrar('zanahoria')">Zanahoria</button>
+<div id="botones"></div>
 
-<!-- PANEL EDUCATIVO -->
 <div id="info">
-  <h2>Elige una planta</h2>
-  <p>Aquí aparecerá la información educativa.</p>
+  <h2>Selecciona una planta</h2>
+  <p>El panel educativo aparecerá aquí.</p>
 </div>
 
 <script>
-function mostrar(planta) {
-  if (planta === 'tomate') {
-    document.getElementById("visor").src = "https://sketchfab.com/models/ID_TOMATE/embed";
-    document.getElementById("info").innerHTML = `
+// Datos educativos
+const datos = {
+  tomate: {
+    modelo: "ID_TOMATE",
+    info: `
       <h2>Tomate</h2>
-      <p><strong>Siembra:</strong> Marzo - Mayo</p>
+      <p><strong>Siembra:</strong> Marzo – Mayo</p>
       <p><strong>Riego:</strong> Moderado</p>
       <p><strong>Sol:</strong> Mucho sol</p>
-      <p><strong>Dato curioso:</strong> Es un fruto, no una verdura.</p>
-    `;
-  }
-
-  if (planta === 'lechuga') {
-    document.getElementById("visor").src = "https://sketchfab.com/models/ID_LECHUGA/embed";
-    document.getElementById("info").innerHTML = `
+      <p><strong>Cosecha:</strong> 70–90 días</p>
+      <p><strong>Curiosidad:</strong> Es un fruto.</p>
+      <p><strong>Consejo:</strong> Usa tutores.</p>
+    `
+  },
+  lechuga: {
+    modelo: "ID_LECHUGA",
+    info: `
       <h2>Lechuga</h2>
       <p><strong>Siembra:</strong> Todo el año</p>
       <p><strong>Riego:</strong> Frecuente</p>
       <p><strong>Sol:</strong> Medio</p>
-      <p><strong>Dato curioso:</strong> Crece muy rápido.</p>
-    `;
-  }
-
-  if (planta === 'zanahoria') {
-    document.getElementById("visor").src = "https://sketchfab.com/models/ID_ZANAHORIA/embed";
-    document.getElementById("info").innerHTML = `
+      <p><strong>Cosecha:</strong> 30–60 días</p>
+      <p><strong>Curiosidad:</strong> Crece rápido.</p>
+      <p><strong>Consejo:</strong> Mantén el suelo húmedo.</p>
+    `
+  },
+  zanahoria: {
+    modelo: "ID_ZANAHORIA",
+    info: `
       <h2>Zanahoria</h2>
       <p><strong>Siembra:</strong> Primavera</p>
       <p><strong>Riego:</strong> Ligero</p>
       <p><strong>Sol:</strong> Medio</p>
-      <p><strong>Dato curioso:</strong> Antes eran moradas.</p>
-    `;
+      <p><strong>Cosecha:</strong> 70–80 días</p>
+      <p><strong>Curiosidad:</strong> Antes eran moradas.</p>
+      <p><strong>Consejo:</strong> Suelo suelto.</p>
+    `
   }
+};
+
+// Cargar lista de plantas reales
+fetch("plantas.json")
+  .then(r => r.json())
+  .then(data => {
+    const cont = document.getElementById("botones");
+    data.huerto.forEach(planta => {
+      const btn = document.createElement("button");
+      btn.textContent = planta;
+      btn.onclick = () => mostrar(planta);
+      cont.appendChild(btn);
+    });
+  });
+
+function mostrar(planta) {
+  const d = datos[planta];
+  document.getElementById("visor").src =
+    `https://sketchfab.com/models/${d.modelo}/embed`;
+  document.getElementById("info").innerHTML = d.info;
 }
 </script>
 
