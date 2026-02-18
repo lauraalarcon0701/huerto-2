@@ -14,20 +14,23 @@
 
 <h1>Huerto Educativo Dinámico</h1>
 
+<!-- VISOR 3D -->
 <iframe id="visor" src=""></iframe>
 
+<!-- BOTONES AUTOMÁTICOS -->
 <div id="botones"></div>
 
+<!-- PANEL EDUCATIVO -->
 <div id="info">
   <h2>Selecciona una planta</h2>
   <p>El panel educativo aparecerá aquí.</p>
 </div>
 
 <script>
-// Datos educativos
+// DATOS EDUCATIVOS + MODELOS 3D
 const datos = {
   tomate: {
-    modelo: "ID_TOMATE",
+    modelo: "69J7v",
     info: `
       <h2>Tomate</h2>
       <p><strong>Siembra:</strong> Marzo – Mayo</p>
@@ -39,7 +42,7 @@ const datos = {
     `
   },
   lechuga: {
-    modelo: "ID_LECHUGA",
+    modelo: "6TVTU",
     info: `
       <h2>Lechuga</h2>
       <p><strong>Siembra:</strong> Todo el año</p>
@@ -51,7 +54,7 @@ const datos = {
     `
   },
   zanahoria: {
-    modelo: "ID_ZANAHORIA",
+    modelo: "6XqJP",
     info: `
       <h2>Zanahoria</h2>
       <p><strong>Siembra:</strong> Primavera</p>
@@ -61,10 +64,46 @@ const datos = {
       <p><strong>Curiosidad:</strong> Antes eran moradas.</p>
       <p><strong>Consejo:</strong> Suelo suelto.</p>
     `
+  },
+  pimiento: {
+    modelo: "p8IxI",
+    info: `
+      <h2>Pimiento</h2>
+      <p><strong>Siembra:</strong> Febrero – Abril</p>
+      <p><strong>Riego:</strong> Moderado</p>
+      <p><strong>Sol:</strong> Mucho sol</p>
+      <p><strong>Cosecha:</strong> 60–90 días</p>
+      <p><strong>Curiosidad:</strong> El color depende de la maduración.</p>
+      <p><strong>Consejo:</strong> Necesita calor constante.</p>
+    `
+  },
+  fresa: {
+    modelo: "6TYZJ",
+    info: `
+      <h2>Fresa</h2>
+      <p><strong>Siembra:</strong> Final de invierno</p>
+      <p><strong>Riego:</strong> Frecuente</p>
+      <p><strong>Sol:</strong> Medio</p>
+      <p><strong>Cosecha:</strong> Primavera – Verano</p>
+      <p><strong>Curiosidad:</strong> No es un fruto, es un receptáculo floral.</p>
+      <p><strong>Consejo:</strong> Evita mojar los frutos al regar.</p>
+    `
+  },
+  menta: {
+    modelo: "oo8xD",
+    info: `
+      <h2>Menta</h2>
+      <p><strong>Siembra:</strong> Primavera</p>
+      <p><strong>Riego:</strong> Frecuente</p>
+      <p><strong>Sol:</strong> Sombra ligera</p>
+      <p><strong>Cosecha:</strong> Todo el año</p>
+      <p><strong>Curiosidad:</strong> Se extiende muy rápido.</p>
+      <p><strong>Consejo:</strong> Mejor en maceta para controlarla.</p>
+    `
   }
 };
 
-// Cargar lista de plantas reales
+// CARGAR LISTA DE PLANTAS REALES
 fetch("plantas.json")
   .then(r => r.json())
   .then(data => {
@@ -77,6 +116,7 @@ fetch("plantas.json")
     });
   });
 
+// CAMBIAR MODELO + INFO
 function mostrar(planta) {
   const d = datos[planta];
   document.getElementById("visor").src =
@@ -87,3 +127,5 @@ function mostrar(planta) {
 
 </body>
 </html>
+
+
